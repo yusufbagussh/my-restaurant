@@ -1,0 +1,272 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+/* Global Styles */
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Color palette */
+:root {
+  --primary-color: #00796b;
+  --secondary-color: #f57c00;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+}
+
+/* App Bar Styles */
+.app-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 10px;
+}
+
+.app-bar__brand h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.app-bar__menu {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  display: none; /* Hidden by default */
+}
+
+.app-bar__nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.app-bar__nav ul li {
+  margin-left: 20px;
+}
+
+.app-bar__nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  display: block;
+  min-width: 44 px;
+  min-height: 44 px;
+}
+
+.app-bar__nav.show {
+  display: flex;
+}
+
+/* Hero Element Styles */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  background-color: var(--secondary-color);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.hero-content p {
+  font-size: 18px;
+}
+
+/* Styles for the restaurant section */
+.restaurant-section {
+  padding: 40px 20px;
+  margin: 0 auto;
+}
+
+.restaurant-section h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+/* Styles for the restaurant list */
+.restaurant-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 0 10px;
+}
+
+.restaurant-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  transition: transform 0.3s;
+}
+
+.restaurant-item:hover {
+  transform: translateY(-5px);
+}
+
+.restaurant-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.restaurant-info {
+  padding: 20px;
+}
+
+.restaurant-name {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.restaurant-city,
+.restaurant-rating {
+  font-size: 16px;
+  color: var(--secondary-color);
+}
+
+.restaurant-description {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #444;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+  width: 100%;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+  text-decoration: none;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 10px;
+}
+
+/* Pada layar di atas 1200px, tampilkan 3 kolom */
+@media (min-width: 1200px) {
+  .restaurant-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Pada layar 768px hingga 1199px, tampilkan 2 kolom */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .restaurant-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Pada layar di bawah 768px, tampilkan 1 kolom */
+@media (max-width: 767px) {
+  .restaurant-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsiveness for Hero Text */
+@media (min-width: 600px) {
+  .hero-content h1 {
+    font-size: 48px;
+  }
+
+  .hero-content p {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content h1 {
+    font-size: 60px;
+  }
+
+  .hero-content p {
+    font-size: 24px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-bar__menu {
+    display: block;
+  }
+
+  .app-bar__nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #333;
+    width: 200px;
+    text-align: right;
+  }
+
+  .app-bar__nav ul {
+    flex-direction: column;
+  }
+
+  .app-bar__nav ul li {
+    margin: 10px 0;
+  }
+
+  .app-bar__nav ul li a {
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .app-bar__nav.show {
+    display: flex;
+  }
+}
