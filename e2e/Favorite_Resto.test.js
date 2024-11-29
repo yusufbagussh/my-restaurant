@@ -1,3 +1,5 @@
+const assert = require('assert'); // Tambahkan ini di bagian atas
+
 Feature("Favorite Restaurant");
 
 Scenario("Menyukai salah satu restoran", async ({ I }) => {
@@ -6,7 +8,7 @@ Scenario("Menyukai salah satu restoran", async ({ I }) => {
 
   // Pastikan tidak ada restoran di daftar Favorit
   I.seeElement(".restaurant-list"); // Pastikan halaman kosong tersedia
-  I.dontSeeElement(".restaurant-list"); // Tidak ada restoran yang difavoritkan
+  I.dontSeeElement(".restaurant-card"); // Tidak ada restoran yang difavoritkan
 
   // Buka halaman utama
   I.amOnPage("/");

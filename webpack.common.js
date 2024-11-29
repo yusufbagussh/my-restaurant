@@ -56,6 +56,7 @@ module.exports = {
     ],
   },
   plugins: [
+    // new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: path.resolve(__dirname, "src/templates/index.html"),
@@ -108,6 +109,5 @@ module.exports = {
       openAnalyzer: false,    // Jangan langsung buka laporan setelah build
       reportFilename: 'bundle-report.html', // Nama file laporan
     }),
-    new CleanWebpackPlugin(),
   ],
 };
