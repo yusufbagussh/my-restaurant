@@ -1,11 +1,11 @@
 // src/scripts/db/__tests__/favorite-db.test.js
-import FavoriteDb from '../../src/scripts/db/favorite-db';
+import FavoriteDb from "../../src/scripts/db/favorite-db";
 
-describe('Favorite Restaurant Database Test Cases', () => {
+describe("Favorite Restaurant Database Scenarios", () => {
   const mockRestaurant = {
-    id: 'rqdv5juczeskfw1e867',
-    name: 'Mock Restaurant',
-    city: 'Mock City',
+    id: "rqdv5juczeskfw1e867",
+    name: "Mock Restaurant",
+    city: "Mock City",
     rating: 4.5,
   };
 
@@ -17,36 +17,59 @@ describe('Favorite Restaurant Database Test Cases', () => {
     });
   });
 
-  it('should add a restaurant to favorites (positive case)', async () => {
-    await FavoriteDb.addRestaurant(mockRestaurant);
-    const restaurant = await FavoriteDb.getRestaurant(mockRestaurant.id);
-    expect(restaurant).toEqual(mockRestaurant);
+  // A. Menyukai Restaurant
+  describe("Liking a Restaurant", () => {
+    it("should display the widget to like the restaurant when it has not been liked", async () => {
+      const restaurant = await FavoriteDb.getRestaurant(mockRestaurant.id);
+      expect(restaurant).toBeUndefined(); // Restaurant belum disukai
+    });
+
+    it("should add the restaurant to the favorites when the like button is pressed", async () => {
+      await FavoriteDb.addRestaurant(mockRestaurant); // Menyukai restaurant
+      const restaurant = await FavoriteDb.getRestaurant(mockRestaurant.id);
+      expect(restaurant).toEqual(mockRestaurant); // Berhasil ditambahkan
+    });
+
+    it("should not re-add the restaurant if it is already in favorites", async () => {
+      await FavoriteDb.addRestaurant(mockRestaurant); // Tambah pertama kali
+      await FavoriteDb.addRestaurant(mockRestaurant); // Tambah kedua kali (tidak perlu menyimpan kembali)
+
+      const restaurants = await FavoriteDb.getAllRestaurants();
+      expect(restaurants.length).toBe(1); // Harus tetap 1 karena tidak ada duplikasi
+    });
+
+    it("should not add a restaurant without an ID", async () => {
+      const invalidRestaurant = { name: "Invalid Restaurant" }; // Restaurant tanpa ID
+      try {
+        await FavoriteDb.addRestaurant(invalidRestaurant); // Coba simpan
+      } catch (error) {
+        expect(error.message).toBeDefined(); // Error harus muncul
+      }
+
+      const restaurants = await FavoriteDb.getAllRestaurants();
+      expect(restaurants.length).toBe(0); // Tidak ada restaurant yang disimpan
+    });
   });
 
-  it('should not add a restaurant with invalid data (negative case)', async () => {
-    const invalidRestaurant = {};
-    try {
-      await FavoriteDb.addRestaurant(invalidRestaurant);
-    } catch (error) {
-      expect(error.message).toBeDefined();
-    }
-  });
+  // B. Batal Menyukai Restaurant
+  describe("Unliking a Restaurant", () => {
+    it("should display the widget to unlike the restaurant when it has been liked", async () => {
+      await FavoriteDb.addRestaurant(mockRestaurant); // Tambah ke favorit
+      const restaurant = await FavoriteDb.getRestaurant(mockRestaurant.id);
+      expect(restaurant).toEqual(mockRestaurant); // Widget untuk unlike muncul
+    });
 
-  it('should delete a restaurant from favorites (positive case)', async () => {
-    await FavoriteDb.addRestaurant(mockRestaurant);
-    await FavoriteDb.deleteRestaurant(mockRestaurant.id);
-    const restaurant = await FavoriteDb.getRestaurant(mockRestaurant.id);
-    expect(restaurant).toBeUndefined();
-  });
+    it("should remove the restaurant from the favorites when the unlike button is pressed", async () => {
+      await FavoriteDb.addRestaurant(mockRestaurant); // Tambah ke favorit
+      await FavoriteDb.deleteRestaurant(mockRestaurant.id); // Hapus dari favorit
 
-  it('should return undefined when trying to delete a non-existent restaurant (negative case)', async () => {
-    const result = await FavoriteDb.deleteRestaurant('non-existent-id');
-    expect(result).toBeUndefined();
-  });
+      const restaurant = await FavoriteDb.getRestaurant(mockRestaurant.id);
+      expect(restaurant).toBeUndefined(); // Restaurant berhasil dihapus
+    });
 
-  it('should get all restaurants (positive case)', async () => {
-    await FavoriteDb.addRestaurant(mockRestaurant);
-    const restaurants = await FavoriteDb.getAllRestaurants();
-    expect(restaurants.length).toBeGreaterThan(0);
+    it("should do nothing when trying to unlike a restaurant that is not in favorites", async () => {
+      const result = await FavoriteDb.deleteRestaurant("non-existent-id"); // Hapus restaurant yang tidak ada
+      expect(result).toBeUndefined(); // Tidak ada error dan tidak ada yang dihapus
+    });
   });
 });

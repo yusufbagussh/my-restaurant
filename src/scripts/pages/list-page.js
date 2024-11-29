@@ -14,8 +14,6 @@ const ListPage = {
           src="./images/hero-image_2-large.jpg" 
           alt="Restaurant Hero" 
           class="hero-img"
-          width="1200" 
-          height="600"
         />
       </picture>
       <div class="hero-content">

@@ -8,14 +8,12 @@ const ListPage = {
     return `
     <div class="hero" role="banner">
       <picture>
-        <source media="(max-width: 768px)" srcset="...images/heros/hero-image_2-small.jpg">
-        <source media="(max-width: 1200px)" srcset="...images/heros/hero-image_2-medium.jpg">
+        <source media="(max-width: 768px)" srcset="./images/hero-image_2-small.jpg">
+        <source media="(max-width: 1200px)" srcset="./images/hero-image_2-medium.jpg">
         <img 
           src="./images/hero-image_2-large.jpg" 
           alt="Restaurant Hero" 
           class="hero-img"
-          width="1200" 
-          height="600"
         />
       </picture>
       <div class="hero-content">
